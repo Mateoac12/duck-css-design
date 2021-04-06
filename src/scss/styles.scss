@@ -1,0 +1,125 @@
+$duck-body: #fdc017;
+$duck-eye: #8a5d3c;
+$duck-wing: #e59915;
+$duck-mouth: #e7601c;
+$wave: rgba(135, 207, 235, 0.5);
+
+body {
+    background-color: #f0f0f0;
+    display: grid;
+    place-items: center;
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+}
+
+.figure {
+    position: relative;
+}
+
+.duck {
+    position: relative;
+    animation: duck-swim 3s infinite linear alternate;
+
+    &__body {
+        position: relative;
+        width: 200px;
+        height: 300px;
+        background-color: $duck-body;
+        border-radius: 50% / 30%;
+        z-index: 1;
+
+        &::before, &::after {
+            content: "";
+            position: absolute;
+        }
+
+        &::before {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: $duck-eye;
+            left: 50%;
+            top: 20%;
+            transform: translate(-50%);
+            animation: eye 5s linear infinite;
+        }
+
+        @keyframes eye {
+            95% {
+                transform: translate(-50%) rotateX(0);
+            } 100% {
+                transform: translate(-50%) rotateX(.5turn);
+            }
+        }
+
+        &::after {
+            width: 100%;
+            height: 50%;
+            background-color: $duck-wing;
+            border-radius: 40% 10% 40% 40% / 50% 10% 50% 50%;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-25%);
+            box-sizing: border-box;
+            border: 40px solid $duck-body;
+        }
+    }
+
+    &__mouth {
+        z-index: -1;
+        width: 60px;
+        height: 25px;
+        background-color: $duck-mouth;
+        position: absolute;
+        top: 25%;
+        left: 0;
+        transform: translateX(-80%);
+        border-top-left-radius: 25% 50%;
+        border-bottom-left-radius: 25% 50%;
+        box-shadow: 4px 27px 0 $duck-mouth;
+    }
+
+    @keyframes duck-swim {
+        from {
+            transform: rotate(-2deg);
+        } to {
+            transform: rotate(2deg);
+        }
+    }
+}
+
+.water {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    transform: translateX(-40%) translateY(-50%);
+    background-color: royalblue;
+    border-radius: 50%;
+    width: 350px;
+    height: 80px;
+    overflow: hidden;
+    z-index: -1;
+
+    &::before {
+        content: "";
+        border-radius: 50%;
+        border: 2px solid $wave;
+        animation: wave 2s infinite linear;
+    }
+
+    @keyframes wave {
+        from {
+            width: 0%;
+            height: 0%;
+            opacity: 1;
+        } to {
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+    }
+}
